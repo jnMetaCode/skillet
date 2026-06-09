@@ -1,0 +1,8 @@
+node_modules/
+*.log
+.DS_Store
+dist/
+.env
+.env.local
+# don't ignore the example install target; do ignore real local test installs
+.claude/skills/

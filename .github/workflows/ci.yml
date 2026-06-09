@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Syntax check
+        run: |
+          node --check src/cli.js
+          node --check src/install.js
+          node --check src/source.js
+          node --check src/registry.js
+          node --check src/frontmatter.js
+          node --check src/config.js
+          node --check src/util.js
+      - name: Test
+        run: npm test
+      - name: E2E (real GitHub install)
+        if: matrix.os == 'ubuntu-latest' && matrix.node == 22
+        env:
+          SKILLET_E2E: '1'
+        run: npm test

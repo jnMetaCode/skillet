@@ -1,0 +1,43 @@
+{
+  "name": "skillet",
+  "version": "0.1.0",
+  "description": "A package manager for AI agent skills. Find, install, version and share SKILL.md skills from a Git-backed registry — zero infra, one command.",
+  "type": "module",
+  "bin": {
+    "skillet": "./src/cli.js"
+  },
+  "scripts": {
+    "test": "node --test test/run.js"
+  },
+  "files": [
+    "src",
+    "registry",
+    "README.md"
+  ],
+  "keywords": [
+    "ai",
+    "agents",
+    "agent-skills",
+    "claude",
+    "skill",
+    "skills",
+    "package-manager",
+    "registry",
+    "llm",
+    "mcp",
+    "cli"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/USER/skillet.git"
+  },
+  "homepage": "https://github.com/USER/skillet#readme",
+  "bugs": {
+    "url": "https://github.com/USER/skillet/issues"
+  }
+}

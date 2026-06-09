@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "updated": "2026-06-10",
+  "note": "Community registry for AI agent skills. Add yours via PR — see docs/SPEC.md. Entries point at a SKILL.md folder in a public Git repo.",
+  "skills": [
+    {
+      "name": "pdf",
+      "description": "Extract text and tables from PDFs, fill forms, merge/split, and create new PDFs.",
+      "repo": "anthropics/skills",
+      "path": "skills/pdf",
+      "ref": "main",
+      "keywords": ["pdf", "documents", "extraction", "forms"],
+      "license": "source-available"
+    },
+    {
+      "name": "pptx",
+      "description": "Create, edit and analyze PowerPoint presentations: layouts, templates, charts, slide generation.",
+      "repo": "anthropics/skills",
+      "path": "skills/pptx",
+      "ref": "main",
+      "keywords": ["pptx", "powerpoint", "slides", "documents"],
+      "license": "source-available"
+    },
+    {
+      "name": "docx",
+      "description": "Create, edit and analyze Word documents with tracked changes, comments and formatting.",
+      "repo": "anthropics/skills",
+      "path": "skills/docx",
+      "ref": "main",
+      "keywords": ["docx", "word", "documents"],
+      "license": "source-available"
+    },
+    {
+      "name": "xlsx",
+      "description": "Read, write and analyze Excel spreadsheets including formulas and charts.",
+      "repo": "anthropics/skills",
+      "path": "skills/xlsx",
+      "ref": "main",
+      "keywords": ["xlsx", "excel", "spreadsheets", "data"],
+      "license": "source-available"
+    },
+    {
+      "name": "skill-creator",
+      "description": "A skill that helps you author new, well-structured agent skills.",
+      "repo": "anthropics/skills",
+      "path": "skills/skill-creator",
+      "ref": "main",
+      "keywords": ["meta", "authoring", "scaffold"],
+      "license": "source-available"
+    }
+  ]
+}
