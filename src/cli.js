@@ -8,6 +8,7 @@ import { fetchIndex, searchIndex } from './registry.js';
 import { addSkill, removeSkill, listSkills, updateSkill } from './install.js';
 import { parseFrontmatter, validateSkill } from './frontmatter.js';
 import { generateGallery } from './gallery.js';
+import { startMcp } from './mcp.js';
 
 function parseArgs(argv) {
   const flags = {};
@@ -40,6 +41,7 @@ ${c.bold('Commands')}
   ${c.cyan('new')} <name>           scaffold a new SKILL.md skill folder
   ${c.cyan('validate')} [path]      validate a SKILL.md (default: ./)
   ${c.cyan('gallery')}              build a static, browsable HTML gallery of the registry
+  ${c.cyan('mcp')}                  run as an MCP server over stdio (Claude/agents)
   ${c.cyan('init')}                 create skillet.json in this project
 
 ${c.bold('Flags')}
@@ -192,6 +194,11 @@ const commands = {
     fs.writeFileSync(outFile, html);
     ok(`wrote ${outFile} (${index.skills.length} skills)`);
     log(c.dim(`  preview: open ${outFile}  ·  deploy the "${outDir}" folder to GitHub Pages`));
+  },
+
+  mcp() {
+    // stdio is the protocol channel — do not print to stdout.
+    startMcp();
   },
 
   init(_args, flags) {

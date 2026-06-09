@@ -62,6 +62,27 @@ npx skillet add ./skills/my-local-skill          # a local folder
 Skills install into `.claude/skills/` by default (the common 2026 convention).
 Change it per-project with `skillet init` or `--dir`.
 
+## Use it from Claude (MCP)
+
+skillet speaks the [Model Context Protocol](https://modelcontextprotocol.io), so
+Claude Desktop / Claude Code can search and install skills for you — "find a PDF
+skill and install it" just works. Add to `claude_desktop_config.json` (or a
+project `.mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "skillet": {
+      "command": "npx",
+      "args": ["-y", "skillet", "mcp"]
+    }
+  }
+}
+```
+
+Tools exposed: `skillet_search`, `skillet_install` (registry-only, name-validated),
+`skillet_list`. Zero dependencies — a few hundred lines of JSON-RPC over stdio.
+
 ## Browse the registry
 
 ```bash
@@ -110,6 +131,8 @@ Push it to GitHub, then open a PR adding one entry to
 | `skillet update [name]` | re-install tracked skill(s) at the latest ref |
 | `skillet new <name>` | scaffold a new skill |
 | `skillet validate [path]` | validate a `SKILL.md` |
+| `skillet gallery` | build a static, searchable registry gallery |
+| `skillet mcp` | run as an MCP server (stdio) for Claude/agents |
 | `skillet init` | write `skillet.json` config |
 
 Flags: `--force`, `--dir <path>`, `--registry <url|path>`, `--json`.

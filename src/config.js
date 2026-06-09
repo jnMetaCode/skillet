@@ -6,20 +6,20 @@ export const CONFIG_FILE = 'skillet.json';
 export const LOCK_FILE = 'skillet.lock.json';
 
 // Bundled default registry index (raw GitHub). Replace USER on publish.
-const DEFAULT_REGISTRY =
-  process.env.SKILLET_REGISTRY ||
-  'https://raw.githubusercontent.com/USER/skillet/main/registry/index.json';
+const FALLBACK_REGISTRY = 'https://raw.githubusercontent.com/USER/skillet/main/registry/index.json';
 
 export const DEFAULTS = {
   // Where skills get installed. `.claude/skills` is the common 2026 convention.
   skillsDir: '.claude/skills',
-  registry: DEFAULT_REGISTRY,
+  registry: FALLBACK_REGISTRY,
 };
 
 export function loadConfig(cwd = process.cwd()) {
   const p = join(cwd, CONFIG_FILE);
   const user = exists(p) ? readJson(p, {}) : {};
-  return { ...DEFAULTS, ...user, _path: p, _exists: exists(p) };
+  // Precedence: project skillet.json > SKILLET_REGISTRY env (read at call time) > fallback.
+  const registry = user.registry || process.env.SKILLET_REGISTRY || DEFAULTS.registry;
+  return { ...DEFAULTS, ...user, registry, _path: p, _exists: exists(p) };
 }
 
 export function saveConfig(cwd, cfg) {

@@ -10,6 +10,8 @@ import { resolveRef } from '../src/source.js';
 import { searchIndex, findInIndex, entryToSpec, fetchIndex } from '../src/registry.js';
 import { addSkill, listSkills, removeSkill, updateSkill } from '../src/install.js';
 import { generateGallery } from '../src/gallery.js';
+import { createHandler } from '../src/mcp.js';
+import { spawn } from 'node:child_process';
 
 const HELLO = fileURLToPath(new URL('../examples/skills/hello-world', import.meta.url));
 const INDEX = fileURLToPath(new URL('../registry/index.json', import.meta.url));
@@ -174,6 +176,67 @@ test('gallery tolerates malformed registry entries (missing name/repo)', () => {
   assert.ok(html.includes('>ok-skill</h3>'));
   assert.ok(!html.includes('github.com/"')); // no broken repo link
   assert.ok(!html.includes('>undefined<'));
+});
+
+// -------------------------------------------------------------------- mcp ---
+test('skillet MCP handler: initialize, tools/list, search, install error', async () => {
+  process.env.SKILLET_REGISTRY = INDEX; // offline registry
+  const h = createHandler();
+
+  const init = await h({ jsonrpc: '2.0', id: 1, method: 'initialize', params: { protocolVersion: '2025-06-18' } });
+  assert.equal(init.result.protocolVersion, '2025-06-18');
+  assert.equal(init.result.serverInfo.name, 'skillet');
+
+  assert.equal(await h({ jsonrpc: '2.0', method: 'notifications/initialized' }), null);
+
+  const list = await h({ jsonrpc: '2.0', id: 2, method: 'tools/list', params: {} });
+  assert.deepEqual(list.result.tools.map((t) => t.name).sort(), ['skillet_install', 'skillet_list', 'skillet_search']);
+
+  const search = await h({ jsonrpc: '2.0', id: 3, method: 'tools/call', params: { name: 'skillet_search', arguments: { query: 'powerpoint' } } });
+  assert.match(search.result.content[0].text, /pptx/);
+
+  // unknown registry skill -> tool error (not a protocol error)
+  const bad = await h({ jsonrpc: '2.0', id: 4, method: 'tools/call', params: { name: 'skillet_install', arguments: { name: 'no-such-skill-xyz' } } });
+  assert.equal(bad.result.isError, true);
+
+  // unknown tool -> JSON-RPC error
+  const unk = await h({ jsonrpc: '2.0', id: 5, method: 'tools/call', params: { name: 'nope', arguments: {} } });
+  assert.equal(unk.error.code, -32602);
+
+  delete process.env.SKILLET_REGISTRY;
+});
+
+test('skillet MCP stdio: real spawned handshake (pure-JSON stdout)', async () => {
+  const cli = fileURLToPath(new URL('../src/cli.js', import.meta.url));
+  const child = spawn(process.execPath, [cli, 'mcp'], {
+    env: { ...process.env, SKILLET_REGISTRY: INDEX, NO_COLOR: '1' },
+    stdio: ['pipe', 'pipe', 'pipe'],
+  });
+  const lines = [];
+  let buf = '';
+  const got = new Promise((resolve, reject) => {
+    child.stdout.setEncoding('utf8');
+    child.stdout.on('data', (d) => {
+      buf += d;
+      let nl;
+      while ((nl = buf.indexOf('\n')) >= 0) {
+        const line = buf.slice(0, nl).trim();
+        buf = buf.slice(nl + 1);
+        if (line) {
+          lines.push(JSON.parse(line));
+          if (lines.length >= 2) resolve();
+        }
+      }
+    });
+    child.on('error', reject);
+    setTimeout(() => reject(new Error('timeout')), 5000);
+  });
+  child.stdin.write(JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'initialize', params: { protocolVersion: '2025-06-18' } }) + '\n');
+  child.stdin.write(JSON.stringify({ jsonrpc: '2.0', id: 2, method: 'tools/list', params: {} }) + '\n');
+  await got;
+  child.kill();
+  assert.equal(lines.find((l) => l.id === 1).result.serverInfo.name, 'skillet');
+  assert.ok(lines.find((l) => l.id === 2).result.tools.some((t) => t.name === 'skillet_search'));
 });
 
 test('install rejects a folder without SKILL.md', async () => {
