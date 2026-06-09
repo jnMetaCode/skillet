@@ -16,17 +16,23 @@ function card(s) {
   const path = s.path ? '/' + esc(s.path) : '';
   const kw = (s.keywords || []).map((k) => `<span class="tag">${esc(k)}</span>`).join('');
   const hay = esc([s.name, s.description, ...(s.keywords || [])].join(' ').toLowerCase());
+  const repoLink = s.repo
+    ? `<a class="repo" href="https://github.com/${repo}${s.path ? '/tree/' + esc(s.ref || 'main') + '/' + esc(s.path) : ''}" target="_blank" rel="noopener">${repo}${path} ↗</a>`
+    : '';
   return `<article class="card" data-search="${hay}">
   <header><h3>${esc(s.name)}</h3>${s.license ? `<span class="lic">${esc(s.license)}</span>` : ''}</header>
   <p class="desc">${esc(s.description || '')}</p>
   <div class="tags">${kw}</div>
   <div class="add"><code>npx skillet add ${esc(s.name)}</code><button class="copy" data-cmd="npx skillet add ${esc(s.name)}" aria-label="copy">copy</button></div>
-  <a class="repo" href="https://github.com/${repo}${s.path ? '/tree/' + esc(s.ref || 'main') + '/' + esc(s.path) : ''}" target="_blank" rel="noopener">${repo}${path} ↗</a>
+  ${repoLink}
 </article>`;
 }
 
 export function generateGallery(index, { title = 'skillet', repoUrl = 'https://github.com/USER/skillet' } = {}) {
-  const skills = (index.skills || []).slice().sort((a, b) => a.name.localeCompare(b.name));
+  const skills = (index.skills || [])
+    .filter((s) => s && s.name) // skip malformed entries so one bad PR can't break the build
+    .slice()
+    .sort((a, b) => String(a.name).localeCompare(String(b.name)));
   const cards = skills.map(card).join('\n');
   return `<!doctype html>
 <html lang="en">

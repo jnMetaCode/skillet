@@ -154,6 +154,28 @@ test('gallery: escapes injection in skill fields', () => {
   assert.ok(html.includes('&lt;img src=x onerror'));
 });
 
+test('install refuses a skill whose name escapes skillsDir (even with --force)', async () => {
+  const cwd = tmpProj();
+  const evil = fs.mkdtempSync(join(os.tmpdir(), 'skillet-evil-'));
+  fs.writeFileSync(join(evil, 'SKILL.md'), '---\nname: ../../pwned\ndescription: x\n---\nbody\n');
+  await assert.rejects(
+    () => addSkill(cwd, { skillsDir: '.claude/skills', registry: INDEX }, evil, { force: true }),
+    /unsafe skill name|outside/
+  );
+  assert.equal(fs.existsSync(join(cwd, '..', 'pwned')), false);
+  fs.rmSync(cwd, { recursive: true, force: true });
+  fs.rmSync(evil, { recursive: true, force: true });
+});
+
+test('gallery tolerates malformed registry entries (missing name/repo)', () => {
+  const html = generateGallery({
+    skills: [{ description: 'no name — should be skipped' }, { name: 'ok-skill', description: 'fine' }],
+  });
+  assert.ok(html.includes('>ok-skill</h3>'));
+  assert.ok(!html.includes('github.com/"')); // no broken repo link
+  assert.ok(!html.includes('>undefined<'));
+});
+
 test('install rejects a folder without SKILL.md', async () => {
   const cwd = tmpProj();
   const empty = fs.mkdtempSync(join(os.tmpdir(), 'skillet-empty-'));

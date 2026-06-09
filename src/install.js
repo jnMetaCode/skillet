@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import { join, basename } from 'node:path';
+import { join, basename, resolve, sep } from 'node:path';
 import { exists, isDir, copyDir, rmrf, die } from './util.js';
 import { parseFrontmatter, validateSkill } from './frontmatter.js';
 import { loadLock, saveLock } from './config.js';
@@ -37,7 +37,17 @@ export async function addSkill(cwd, cfg, ref, { force = false } = {}) {
     }
 
     const name = String(meta.name || basename(spec.path || spec.repo || src.dir));
+    // SECURITY: name comes from untrusted SKILL.md frontmatter (or a remote
+    // repo). Never let it escape skillsDir via "..", "/", or an absolute path —
+    // and don't let --force bypass this check.
+    if (!/^[a-z0-9][a-z0-9._-]*$/i.test(name) || name.includes('..')) {
+      die(`unsafe skill name "${name}" — names must be a single path segment (letters, digits, . _ -)`);
+    }
+    const skillsRoot = resolve(join(cwd, cfg.skillsDir));
     const target = join(cwd, cfg.skillsDir, name);
+    if (resolve(target) !== join(skillsRoot, name) || !resolve(target).startsWith(skillsRoot + sep)) {
+      die(`refusing to install "${name}" outside ${cfg.skillsDir}/`);
+    }
     if (exists(target) && !force) {
       die(`skill "${name}" is already installed. Use --force to overwrite, or: skillet update ${name}`);
     }

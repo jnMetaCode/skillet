@@ -39,7 +39,9 @@ npx skillet new my-skill          # scaffold your own
 - **Skills are files, not dependencies.** Like [shadcn/ui](https://ui.shadcn.com),
   skillet *copies the skill into your repo* (`.claude/skills/<name>/`) where you
   can read and tweak it — not into an opaque `node_modules`.
-- **Reproducible.** Every install is pinned by commit SHA in `skillet.lock.json`.
+- **Pinnable & tracked.** Every install records the exact commit SHA it resolved
+  to in `skillet.lock.json`. Pin to an exact commit with `add owner/repo#<sha>`;
+  `skillet update` re-resolves a branch/tag to its latest.
 - **Zero infrastructure.** The registry is a JSON index in a Git repo, served
   over raw GitHub. No backend, no database, no API keys. Adding a skill is a PR.
 - **Install from anywhere.** A registry name, any `owner/repo[/path][#ref]`, or a
@@ -52,7 +54,8 @@ npx skillet new my-skill          # scaffold your own
 ```bash
 npx skillet add pdf                              # from the registry
 npx skillet add anthropics/skills/skills/pptx    # any GitHub repo + subpath
-npx skillet add owner/repo#v2.1.0                # pin a tag/branch
+npx skillet add owner/repo#v2.1.0                # a tag/branch
+npx skillet add owner/repo#<commit-sha>          # pin to an exact commit
 npx skillet add ./skills/my-local-skill          # a local folder
 ```
 

@@ -32,7 +32,7 @@ function parseInlineArray(v) {
     } else buf += ch;
   }
   parts.push(buf);
-  return parts.map((p) => coerce(p)).filter((x) => x !== null || true);
+  return parts.map((p) => coerce(p)).filter((x) => x !== null);
 }
 
 /**

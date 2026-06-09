@@ -41,22 +41,51 @@ function mkTmp() {
   return fs.mkdtempSync(join(os.tmpdir(), 'skillet-'));
 }
 
+const isSha = (ref) => /^[0-9a-f]{7,40}$/i.test(ref);
+
+// Validate the parts we interpolate into git args / a URL. Defense in depth:
+// spawnSync runs with no shell, but this rejects anything weird up front.
+function validateSpec(spec) {
+  const okName = /^[A-Za-z0-9._-]+$/;
+  if (!okName.test(spec.owner) || !okName.test(spec.repo)) {
+    die(`invalid repo "${spec.owner}/${spec.repo}"`);
+  }
+  if (spec.ref && !/^[A-Za-z0-9._/-]+$/.test(spec.ref)) die(`invalid ref "${spec.ref}"`);
+  if (spec.path && (spec.path.includes('..') || spec.path.startsWith('/'))) {
+    die(`invalid path "${spec.path}"`);
+  }
+}
+
 // Fetch a github skill into a temp checkout. Returns { dir, resolved, cleanup }.
 function fetchGithub(spec) {
   if (!hasGit()) die('git is required to install from GitHub. Install git, or use a local path.');
+  validateSpec(spec);
   const tmp = mkTmp();
   const url = `https://github.com/${spec.owner}/${spec.repo}.git`;
-  const args = ['clone', '--depth', '1', '--filter=blob:none'];
-  if (spec.ref) args.push('--branch', spec.ref);
-  args.push(url, tmp);
+  // A commit SHA can't be used with `git clone --branch`; clone the default
+  // branch, then fetch + checkout the exact commit (real pinning).
+  const branchRef = spec.ref && !isSha(spec.ref) ? spec.ref : null;
 
-  let r = run('git', args);
+  const cloneArgs = ['clone', '--depth', '1', '--filter=blob:none'];
+  if (branchRef) cloneArgs.push('--branch', branchRef);
+  cloneArgs.push(url, tmp);
+
+  let r = run('git', cloneArgs);
   if (!r.ok) {
     // --filter not supported on very old git; retry plain shallow clone
     const fallback = ['clone', '--depth', '1'];
-    if (spec.ref) fallback.push('--branch', spec.ref);
+    if (branchRef) fallback.push('--branch', branchRef);
     fallback.push(url, tmp);
     r = run('git', fallback);
+  }
+  if (r.ok && spec.ref && isSha(spec.ref)) {
+    // Pin to an exact commit.
+    const fetched = run('git', ['-C', tmp, 'fetch', '--depth', '1', 'origin', spec.ref]);
+    const co = run('git', ['-C', tmp, 'checkout', '--detach', fetched.ok ? 'FETCH_HEAD' : spec.ref]);
+    if (!co.ok) {
+      fs.rmSync(tmp, { recursive: true, force: true });
+      die(`could not check out commit ${spec.ref} in ${spec.owner}/${spec.repo}\n  ${co.stderr || ''}`);
+    }
   }
   if (!r.ok) {
     fs.rmSync(tmp, { recursive: true, force: true });
