@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { c, log, ok, info, warn, UserError } from './util.js';
 import { loadConfig, saveConfig, DEFAULTS } from './config.js';
 import { fetchIndex, searchIndex } from './registry.js';
-import { addSkill, removeSkill, listSkills, updateSkill } from './install.js';
+import { addSkill, removeSkill, listSkills, updateSkill, installFromLock } from './install.js';
 import { parseFrontmatter, validateSkill } from './frontmatter.js';
 import { generateGallery } from './gallery.js';
 import { startMcp } from './mcp.js';
@@ -35,6 +35,7 @@ ${c.bold('Usage')}
 ${c.bold('Commands')}
   ${c.cyan('search')} [query]        search the registry for skills
   ${c.cyan('add')} <ref>            install a skill (registry name, owner/repo[/path][#ref], or ./local)
+  ${c.cyan('install')}              install all skills from skillet.lock.json at their pinned commits
   ${c.cyan('list')}                 list installed skills
   ${c.cyan('remove')} <name>        uninstall a skill
   ${c.cyan('update')} [name]        re-install tracked skill(s) at the latest ref
@@ -120,6 +121,13 @@ const commands = {
     ok(`installed ${c.bold(r.name)}${r.version ? ' @' + r.version : ''} → ${cfg.skillsDir}/${r.name}`);
     if (r.resolved && r.resolved !== 'local') log(c.dim(`  pinned ${r.resolved.slice(0, 10)} in skillet.lock.json`));
     for (const w of r.warnings || []) warn(w);
+  },
+
+  async install(_args, flags) {
+    const { cwd, cfg } = cfgWith(flags);
+    info(`installing skills from skillet.lock.json → ${cfg.skillsDir}/`);
+    const names = await installFromLock(cwd, cfg, { force: true });
+    ok(`installed ${names.length} skill(s): ${names.join(', ')}`);
   },
 
   list(_args, flags) {

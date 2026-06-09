@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { parseFrontmatter, validateSkill } from '../src/frontmatter.js';
 import { resolveRef } from '../src/source.js';
 import { searchIndex, findInIndex, entryToSpec, fetchIndex } from '../src/registry.js';
-import { addSkill, listSkills, removeSkill, updateSkill } from '../src/install.js';
+import { addSkill, listSkills, removeSkill, updateSkill, installFromLock } from '../src/install.js';
 import { generateGallery } from '../src/gallery.js';
 import { createHandler } from '../src/mcp.js';
 import { spawn } from 'node:child_process';
@@ -154,6 +154,20 @@ test('gallery: escapes injection in skill fields', () => {
   });
   assert.ok(!html.includes('<img src=x onerror'), 'description must be escaped');
   assert.ok(html.includes('&lt;img src=x onerror'));
+});
+
+test('install (from lockfile) restores every locked skill', async () => {
+  const cwd = tmpProj();
+  const cfg = { skillsDir: '.claude/skills', registry: INDEX };
+  await addSkill(cwd, cfg, HELLO); // writes a lockfile entry
+  // simulate a fresh checkout: skill folder gone, lockfile committed
+  fs.rmSync(join(cwd, '.claude/skills/hello-world'), { recursive: true, force: true });
+  assert.equal(fs.existsSync(join(cwd, '.claude/skills/hello-world')), false);
+
+  const names = await installFromLock(cwd, cfg, { force: true });
+  assert.deepEqual(names, ['hello-world']);
+  assert.ok(fs.existsSync(join(cwd, '.claude/skills/hello-world/SKILL.md')));
+  fs.rmSync(cwd, { recursive: true, force: true });
 });
 
 test('install refuses a skill whose name escapes skillsDir (even with --force)', async () => {

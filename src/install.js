@@ -115,3 +115,29 @@ export async function updateSkill(cwd, cfg, name) {
   if (!entry) die(`skill "${name}" is not tracked in ${'skillet.lock.json'}; install it first`);
   return addSkill(cwd, cfg, entry.ref, { force: true });
 }
+
+// Reference that installs a locked skill at its EXACT pinned commit (so a
+// teammate running `skillet install` gets byte-identical skills). Falls back to
+// the original ref for local installs or entries without a resolved SHA.
+function pinnedRef(entry) {
+  if (entry.kind === 'github' && entry.repo) {
+    const base = entry.repo + (entry.path ? '/' + entry.path : '');
+    const pin = entry.resolved || entry.gitRef;
+    return pin ? `${base}#${pin}` : base;
+  }
+  return entry.ref;
+}
+
+// `skillet install` (no args) — reinstall every skill from skillet.lock.json at
+// its pinned version. The reproducible, `npm ci`-style path.
+export async function installFromLock(cwd, cfg, { force = true } = {}) {
+  const lock = loadLock(cwd);
+  const names = Object.keys(lock.skills || {});
+  if (!names.length) die('no skillet.lock.json entries to install — add skills first with: skillet add <ref>');
+  const installed = [];
+  for (const name of names) {
+    const r = await addSkill(cwd, cfg, pinnedRef(lock.skills[name]), { force });
+    installed.push(r.name);
+  }
+  return installed;
+}

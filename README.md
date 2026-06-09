@@ -39,9 +39,10 @@ npx skillet new my-skill          # scaffold your own
 - **Skills are files, not dependencies.** Like [shadcn/ui](https://ui.shadcn.com),
   skillet *copies the skill into your repo* (`.claude/skills/<name>/`) where you
   can read and tweak it — not into an opaque `node_modules`.
-- **Pinnable & tracked.** Every install records the exact commit SHA it resolved
-  to in `skillet.lock.json`. Pin to an exact commit with `add owner/repo#<sha>`;
-  `skillet update` re-resolves a branch/tag to its latest.
+- **Reproducible.** Every install records the exact commit SHA in
+  `skillet.lock.json`. Commit it, and your whole team gets byte-identical skills
+  with `skillet install` (the `npm ci` of skills). Pin a single install with
+  `add owner/repo#<sha>`; `skillet update` re-resolves a branch/tag to its latest.
 - **Zero infrastructure.** The registry is a JSON index in a Git repo, served
   over raw GitHub. No backend, no database, no API keys. Adding a skill is a PR.
 - **Install from anywhere.** A registry name, any `owner/repo[/path][#ref]`, or a
@@ -126,6 +127,7 @@ Push it to GitHub, then open a PR adding one entry to
 | --- | --- |
 | `skillet search [query]` | search the registry |
 | `skillet add <ref>` | install a skill (registry name / `owner/repo[/path][#ref]` / `./local`) |
+| `skillet install` | install all locked skills at their pinned commits (`npm ci`-style) |
 | `skillet list` | list installed skills |
 | `skillet remove <name>` | uninstall |
 | `skillet update [name]` | re-install tracked skill(s) at the latest ref |

@@ -72,9 +72,10 @@ skillet init   # then edit skillet.json -> "registry"
 
 `skillet.lock.json` records, per installed skill: the original `ref`, the source
 `repo`/`path`/`gitRef`, the resolved commit `resolved` (SHA), the `version`, and
-`installedAt`. Commit it so your team can see exactly what was installed. For a
-fully reproducible install, reference an exact commit: `skillet add owner/repo#<sha>`
-(branches/tags track their latest until you `skillet update`).
+`installedAt`. Commit it, then anyone can reproduce the exact set with
+`skillet install` (no args), which reinstalls every entry at its pinned `resolved`
+SHA — the `npm ci` of skills. `skillet add owner/repo#<sha>` pins a single
+install; branches/tags track their latest until you `skillet update`.
 
 ## Config
 
