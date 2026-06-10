@@ -189,7 +189,26 @@ const commands = {
     for (const e of errors) log(c.red('✗ ' + e));
     for (const w of warnings) warn(w);
     if (valid) ok(`${file} is a valid skill${warnings.length ? ' (with warnings)' : ''}`);
-    if (!valid) process.exitCode = 1;
+    if (!valid) {
+      process.exitCode = 1;
+      return;
+    }
+    // Lower the publish barrier: hand the author their registry entry,
+    // ready to paste into a PR against registry/index.json.
+    const entry = {
+      name: data.name,
+      description: data.description,
+      repo: 'YOUR-GITHUB-USER/YOUR-REPO',
+      path: 'path/to/' + data.name,
+      ref: 'main',
+      ...(data.keywords?.length ? { keywords: data.keywords } : {}),
+      ...(data.license ? { license: data.license } : {}),
+    };
+    log('');
+    log(c.dim('  To publish: push the folder to GitHub, then PR this entry to the registry'));
+    log(c.dim('  (https://github.com/jnMetaCode/skillet → registry/index.json):'));
+    log('');
+    log(JSON.stringify(entry, null, 2).replace(/^/gm, '  '));
   },
 
   async gallery(_args, flags) {
