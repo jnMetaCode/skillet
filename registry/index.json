@@ -4,102 +4,17 @@
   "note": "Community registry for AI agent skills. Add yours via PR — see docs/SPEC.md. Entries point at a SKILL.md folder in a public Git repo.",
   "skills": [
     {
-      "name": "pdf",
-      "description": "Extract text and tables from PDFs, fill forms, merge/split, OCR, and create new PDFs. Use for anything involving a .pdf.",
-      "repo": "anthropics/skills",
-      "path": "skills/pdf",
-      "ref": "main",
-      "keywords": ["pdf", "documents", "extraction", "forms", "ocr"],
-      "license": "source-available"
-    },
-    {
-      "name": "pptx",
-      "description": "Create, edit and analyze PowerPoint presentations: layouts, templates, charts, automated slide generation.",
-      "repo": "anthropics/skills",
-      "path": "skills/pptx",
-      "ref": "main",
-      "keywords": ["pptx", "powerpoint", "slides", "presentations", "documents"],
-      "license": "source-available"
-    },
-    {
-      "name": "docx",
-      "description": "Create, edit and analyze Word documents with tracked changes, comments and formatting preservation.",
-      "repo": "anthropics/skills",
-      "path": "skills/docx",
-      "ref": "main",
-      "keywords": ["docx", "word", "documents", "writing"],
-      "license": "source-available"
-    },
-    {
-      "name": "xlsx",
-      "description": "Open, read, edit, format, chart and create spreadsheets (.xlsx/.xlsm/.csv/.tsv), including formulas and data cleaning.",
-      "repo": "anthropics/skills",
-      "path": "skills/xlsx",
-      "ref": "main",
-      "keywords": ["xlsx", "excel", "spreadsheets", "csv", "data"],
-      "license": "source-available"
-    },
-    {
-      "name": "skill-creator",
-      "description": "Author new, well-structured agent skills — scaffolding, conventions and best practices for writing SKILL.md.",
-      "repo": "anthropics/skills",
-      "path": "skills/skill-creator",
-      "ref": "main",
-      "keywords": ["meta", "authoring", "scaffold", "skills"],
-      "license": "source-available"
-    },
-    {
-      "name": "mcp-builder",
-      "description": "Scaffold and build Model Context Protocol (MCP) servers that expose tools to agents.",
-      "repo": "anthropics/skills",
-      "path": "skills/mcp-builder",
-      "ref": "main",
-      "keywords": ["mcp", "tools", "servers", "integration"],
-      "license": "source-available"
-    },
-    {
-      "name": "claude-api",
-      "description": "Build with the Claude API: models, tool use, streaming, and Anthropic SDK usage.",
-      "repo": "anthropics/skills",
-      "path": "skills/claude-api",
-      "ref": "main",
-      "keywords": ["claude", "anthropic", "api", "sdk", "llm"],
-      "license": "source-available"
-    },
-    {
-      "name": "frontend-design",
-      "description": "Design and build polished, modern frontend UI and components.",
-      "repo": "anthropics/skills",
-      "path": "skills/frontend-design",
-      "ref": "main",
-      "keywords": ["frontend", "ui", "design", "web", "css"],
-      "license": "source-available"
-    },
-    {
-      "name": "canvas-design",
-      "description": "Compose graphics on an HTML canvas — posters, social images, layouts.",
-      "repo": "anthropics/skills",
-      "path": "skills/canvas-design",
-      "ref": "main",
-      "keywords": ["canvas", "design", "graphics", "images"],
-      "license": "source-available"
-    },
-    {
       "name": "algorithmic-art",
       "description": "Generate algorithmic / generative art and visual patterns in code.",
       "repo": "anthropics/skills",
       "path": "skills/algorithmic-art",
       "ref": "main",
-      "keywords": ["art", "generative", "creative", "visual"],
-      "license": "source-available"
-    },
-    {
-      "name": "theme-factory",
-      "description": "Generate cohesive visual themes — color systems, type scales and design tokens.",
-      "repo": "anthropics/skills",
-      "path": "skills/theme-factory",
-      "ref": "main",
-      "keywords": ["theme", "design", "colors", "tokens", "branding"],
+      "keywords": [
+        "art",
+        "generative",
+        "creative",
+        "visual"
+      ],
       "license": "source-available"
     },
     {
@@ -108,8 +23,70 @@
       "repo": "anthropics/skills",
       "path": "skills/brand-guidelines",
       "ref": "main",
-      "keywords": ["brand", "design", "guidelines", "marketing"],
+      "keywords": [
+        "brand",
+        "design",
+        "guidelines",
+        "marketing"
+      ],
       "license": "source-available"
+    },
+    {
+      "name": "canvas-design",
+      "description": "Compose graphics on an HTML canvas — posters, social images, layouts.",
+      "repo": "anthropics/skills",
+      "path": "skills/canvas-design",
+      "ref": "main",
+      "keywords": [
+        "canvas",
+        "design",
+        "graphics",
+        "images"
+      ],
+      "license": "source-available"
+    },
+    {
+      "name": "changelog",
+      "description": "Generate or update a CHANGELOG.md in Keep a Changelog format from real git history. Use when cutting a release or asked \"what changed since…\".",
+      "repo": "jnMetaCode/skillet",
+      "path": "skills/changelog",
+      "ref": "main",
+      "keywords": [
+        "changelog",
+        "release",
+        "git",
+        "semver"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "claude-api",
+      "description": "Build with the Claude API: models, tool use, streaming, and Anthropic SDK usage.",
+      "repo": "anthropics/skills",
+      "path": "skills/claude-api",
+      "ref": "main",
+      "keywords": [
+        "claude",
+        "anthropic",
+        "api",
+        "sdk",
+        "llm"
+      ],
+      "license": "source-available"
+    },
+    {
+      "name": "conventional-commits",
+      "description": "Write precise Conventional Commits messages from the actual staged diff. Use whenever committing code or asked to write/fix a commit message.",
+      "repo": "jnMetaCode/skillet",
+      "path": "skills/conventional-commits",
+      "ref": "main",
+      "keywords": [
+        "git",
+        "commits",
+        "conventional-commits",
+        "workflow"
+      ],
+      "license": "MIT"
     },
     {
       "name": "doc-coauthoring",
@@ -117,7 +94,57 @@
       "repo": "anthropics/skills",
       "path": "skills/doc-coauthoring",
       "ref": "main",
-      "keywords": ["writing", "documents", "editing", "collaboration"],
+      "keywords": [
+        "writing",
+        "documents",
+        "editing",
+        "collaboration"
+      ],
+      "license": "source-available"
+    },
+    {
+      "name": "docx",
+      "description": "Create, edit and analyze Word documents with tracked changes, comments and formatting preservation.",
+      "repo": "anthropics/skills",
+      "path": "skills/docx",
+      "ref": "main",
+      "keywords": [
+        "docx",
+        "word",
+        "documents",
+        "writing"
+      ],
+      "license": "source-available"
+    },
+    {
+      "name": "engram-memory",
+      "description": "Give the agent durable, local memory with engram — recall past decisions before answering, persist new decisions and preferences. Use when work spans sessions or the user says \"remember\".",
+      "repo": "jnMetaCode/skillet",
+      "path": "skills/engram-memory",
+      "ref": "main",
+      "keywords": [
+        "memory",
+        "recall",
+        "engram",
+        "local-first",
+        "decisions",
+        "mcp"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "frontend-design",
+      "description": "Design and build polished, modern frontend UI and components.",
+      "repo": "anthropics/skills",
+      "path": "skills/frontend-design",
+      "ref": "main",
+      "keywords": [
+        "frontend",
+        "ui",
+        "design",
+        "web",
+        "css"
+      ],
       "license": "source-available"
     },
     {
@@ -126,7 +153,83 @@
       "repo": "anthropics/skills",
       "path": "skills/internal-comms",
       "ref": "main",
-      "keywords": ["writing", "communications", "workplace"],
+      "keywords": [
+        "writing",
+        "communications",
+        "workplace"
+      ],
+      "license": "source-available"
+    },
+    {
+      "name": "mcp-builder",
+      "description": "Scaffold and build Model Context Protocol (MCP) servers that expose tools to agents.",
+      "repo": "anthropics/skills",
+      "path": "skills/mcp-builder",
+      "ref": "main",
+      "keywords": [
+        "mcp",
+        "tools",
+        "servers",
+        "integration"
+      ],
+      "license": "source-available"
+    },
+    {
+      "name": "pdf",
+      "description": "Extract text and tables from PDFs, fill forms, merge/split, OCR, and create new PDFs. Use for anything involving a .pdf.",
+      "repo": "anthropics/skills",
+      "path": "skills/pdf",
+      "ref": "main",
+      "keywords": [
+        "pdf",
+        "documents",
+        "extraction",
+        "forms",
+        "ocr"
+      ],
+      "license": "source-available"
+    },
+    {
+      "name": "pptx",
+      "description": "Create, edit and analyze PowerPoint presentations: layouts, templates, charts, automated slide generation.",
+      "repo": "anthropics/skills",
+      "path": "skills/pptx",
+      "ref": "main",
+      "keywords": [
+        "pptx",
+        "powerpoint",
+        "slides",
+        "presentations",
+        "documents"
+      ],
+      "license": "source-available"
+    },
+    {
+      "name": "repo-onboarding",
+      "description": "Systematically map an unfamiliar codebase before changing it — entry points, build/test loop, conventions, data flow. Use when starting work in a repo you haven't seen.",
+      "repo": "jnMetaCode/skillet",
+      "path": "skills/repo-onboarding",
+      "ref": "main",
+      "keywords": [
+        "onboarding",
+        "codebase",
+        "exploration",
+        "architecture"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "skill-creator",
+      "description": "Author new, well-structured agent skills — scaffolding, conventions and best practices for writing SKILL.md.",
+      "repo": "anthropics/skills",
+      "path": "skills/skill-creator",
+      "ref": "main",
+      "keywords": [
+        "meta",
+        "authoring",
+        "scaffold",
+        "skills"
+      ],
       "license": "source-available"
     },
     {
@@ -135,7 +238,86 @@
       "repo": "anthropics/skills",
       "path": "skills/slack-gif-creator",
       "ref": "main",
-      "keywords": ["gif", "slack", "animation", "fun"],
+      "keywords": [
+        "gif",
+        "slack",
+        "animation",
+        "fun"
+      ],
+      "license": "source-available"
+    },
+    {
+      "name": "theme-factory",
+      "description": "Generate cohesive visual themes — color systems, type scales and design tokens.",
+      "repo": "anthropics/skills",
+      "path": "skills/theme-factory",
+      "ref": "main",
+      "keywords": [
+        "theme",
+        "design",
+        "colors",
+        "tokens",
+        "branding"
+      ],
+      "license": "source-available"
+    },
+    {
+      "name": "tracelet-instrument",
+      "description": "Instrument an AI agent or LLM app with OpenTelemetry and watch its runs live in tracelet. Use when adding tracing/observability to an agent or debugging what an agent actually did.",
+      "repo": "jnMetaCode/skillet",
+      "path": "skills/tracelet-instrument",
+      "ref": "main",
+      "keywords": [
+        "observability",
+        "opentelemetry",
+        "otlp",
+        "tracing",
+        "debugging",
+        "agents"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "web-artifacts-builder",
+      "description": "Create elaborate, multi-component HTML artifacts with modern frontend web technologies (React, Tailwind).",
+      "repo": "anthropics/skills",
+      "path": "skills/web-artifacts-builder",
+      "ref": "main",
+      "keywords": [
+        "frontend",
+        "artifacts",
+        "react",
+        "html"
+      ],
+      "license": "source-available"
+    },
+    {
+      "name": "webapp-testing",
+      "description": "Interact with and test local web applications using Playwright — verify frontend functionality end to end.",
+      "repo": "anthropics/skills",
+      "path": "skills/webapp-testing",
+      "ref": "main",
+      "keywords": [
+        "testing",
+        "playwright",
+        "webapp",
+        "e2e"
+      ],
+      "license": "source-available"
+    },
+    {
+      "name": "xlsx",
+      "description": "Open, read, edit, format, chart and create spreadsheets (.xlsx/.xlsm/.csv/.tsv), including formulas and data cleaning.",
+      "repo": "anthropics/skills",
+      "path": "skills/xlsx",
+      "ref": "main",
+      "keywords": [
+        "xlsx",
+        "excel",
+        "spreadsheets",
+        "csv",
+        "data"
+      ],
       "license": "source-available"
     }
   ]
