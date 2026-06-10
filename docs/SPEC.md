@@ -84,6 +84,6 @@ install; branches/tags track their latest until you `skillet update`.
 ```json
 {
   "skillsDir": ".claude/skills",
-  "registry": "https://raw.githubusercontent.com/USER/skillet/main/registry/index.json"
+  "registry": "https://raw.githubusercontent.com/jnMetaCode/skillet/main/registry/index.json"
 }
 ```

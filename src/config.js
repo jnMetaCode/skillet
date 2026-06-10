@@ -6,7 +6,7 @@ export const CONFIG_FILE = 'skillet.json';
 export const LOCK_FILE = 'skillet.lock.json';
 
 // Bundled default registry index (raw GitHub). Replace USER on publish.
-const FALLBACK_REGISTRY = 'https://raw.githubusercontent.com/USER/skillet/main/registry/index.json';
+const FALLBACK_REGISTRY = 'https://raw.githubusercontent.com/jnMetaCode/skillet/main/registry/index.json';
 
 export const DEFAULTS = {
   // Where skills get installed. `.claude/skills` is the common 2026 convention.

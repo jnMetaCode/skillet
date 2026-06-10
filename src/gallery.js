@@ -28,7 +28,7 @@ function card(s) {
 </article>`;
 }
 
-export function generateGallery(index, { title = 'skillet', repoUrl = 'https://github.com/USER/skillet' } = {}) {
+export function generateGallery(index, { title = 'skillet', repoUrl = 'https://github.com/jnMetaCode/skillet' } = {}) {
   const skills = (index.skills || [])
     .filter((s) => s && s.name) // skip malformed entries so one bad PR can't break the build
     .slice()

@@ -29,7 +29,7 @@ Ground rules, same spirit as the tool:
 ### Dev loop
 
 ```bash
-git clone https://github.com/USER/skillet && cd skillet
+git clone https://github.com/jnMetaCode/skillet && cd skillet
 node src/cli.js --help
 node src/cli.js add ./examples/skills/hello-world   # local install
 npm test
