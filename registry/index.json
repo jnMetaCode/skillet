@@ -247,6 +247,22 @@
       "license": "MIT"
     },
     {
+      "name": "self-evolve",
+      "description": "Make the agent improve with every task — review the run, distill lessons into durable memory, and reinforce what worked. Use at the end of any non-trivial task.",
+      "repo": "jnMetaCode/skillet",
+      "path": "skills/self-evolve",
+      "ref": "main",
+      "keywords": [
+        "self-improvement",
+        "memory",
+        "reflection",
+        "engram",
+        "tracelet",
+        "feedback"
+      ],
+      "license": "MIT"
+    },
+    {
       "name": "skill-creator",
       "description": "Author new, well-structured agent skills — scaffolding, conventions and best practices for writing SKILL.md.",
       "repo": "anthropics/skills",
