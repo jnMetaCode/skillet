@@ -11,14 +11,16 @@ if you prefer to keep it private.
       scoped keeps the brand, bin stays `skillet`). Claim the `jnmetacode` npm
       username/org before publishing — see engram's `docs/LAUNCH.md` for the
       scope-claim steps. *(name set in package.json + docs)*
-- [x] Seed `registry/index.json` — **22 skills**: all 17 from anthropics/skills
-      plus 5 first-party skills hosted in this repo (`skills/`): engram-memory,
-      tracelet-instrument, conventional-commits, changelog, repo-onboarding.
-      Every entry verified to resolve; live `search`+`add` tested. *(done)*
+- [x] Seed `registry/index.json` — **26 skills**: all 17 from anthropics/skills
+      plus 9 first-party skills hosted in this repo (`skills/`). Every entry
+      verified to resolve; live `search`+`add` tested. *(done)*
 - [x] Record the hero GIF (script below) → `docs/demo.gif`, linked in README.
       *(done — vhs-recorded; re-record any time with `docs/demo.tape`)*
-- [ ] Add `NPM_TOKEN` secret; `git tag v0.1.0 && git push --tags` to publish.
-- [ ] Verify `npx @jnmetacode/skillet add pdf` works from a clean machine.
+- [x] **Published**: `@jnmetacode/skillet` live on npm (v0.1.0, tag + release).
+      Clean-cache `npx @jnmetacode/skillet add …` verified. *(done; `NPM_TOKEN`
+      secret still optional, for future CI publishes)*
+- [x] Verified from a clean npm cache: `npx @jnmetacode/skillet add …` installs
+      and SHA-pins. *(done)*
 
 ## Hero GIF (15–25s) — highest-leverage asset
 
