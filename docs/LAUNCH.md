@@ -1,5 +1,7 @@
 # Launch playbook (internal)
 
+English | [简体中文](./LAUNCH.zh-CN.md)
+
 Go-to-market checklist for skillet. Move this out of the repo before/after launch
 if you prefer to keep it private.
 
