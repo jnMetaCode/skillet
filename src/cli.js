@@ -56,7 +56,7 @@ ${c.bold('Flags')}
 ${c.bold('Examples')}
   npx @jnmetacode/skillet search pdf
   npx @jnmetacode/skillet add pdf-extractor
-  npx @jnmetacode/skillet add anthropics/skills/document-skills/pdf
+  npx @jnmetacode/skillet add anthropics/skills/skills/pdf
   npx @jnmetacode/skillet add ./my-skill
   npx @jnmetacode/skillet new web-scraper`;
 
@@ -126,8 +126,10 @@ const commands = {
   async install(_args, flags) {
     const { cwd, cfg } = cfgWith(flags);
     info(`installing skills from skillet.lock.json → ${cfg.skillsDir}/`);
-    const names = await installFromLock(cwd, cfg, { force: true });
-    ok(`installed ${names.length} skill(s): ${names.join(', ')}`);
+    const { installed, failed } = await installFromLock(cwd, cfg, { force: true });
+    if (installed.length) ok(`installed ${installed.length} skill(s): ${installed.join(', ')}`);
+    for (const f of failed) warn(`skipped ${f.name}: ${f.reason}`);
+    if (failed.length) throw new UserError(`${failed.length} of ${installed.length + failed.length} skill(s) failed to install`);
   },
 
   list(_args, flags) {

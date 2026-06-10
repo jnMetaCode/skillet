@@ -164,9 +164,28 @@ test('install (from lockfile) restores every locked skill', async () => {
   fs.rmSync(join(cwd, '.claude/skills/hello-world'), { recursive: true, force: true });
   assert.equal(fs.existsSync(join(cwd, '.claude/skills/hello-world')), false);
 
-  const names = await installFromLock(cwd, cfg, { force: true });
-  assert.deepEqual(names, ['hello-world']);
+  const { installed, failed } = await installFromLock(cwd, cfg, { force: true });
+  assert.deepEqual(installed, ['hello-world']);
+  assert.deepEqual(failed, []);
   assert.ok(fs.existsSync(join(cwd, '.claude/skills/hello-world/SKILL.md')));
+  fs.rmSync(cwd, { recursive: true, force: true });
+});
+
+test('installFromLock installs what it can when one entry is broken', async () => {
+  const cwd = tmpProj();
+  const cfg = { skillsDir: '.claude/skills', registry: INDEX };
+  await addSkill(cwd, cfg, HELLO);
+  // a lockfile entry whose local path doesn't exist on this machine
+  const lockFile = join(cwd, 'skillet.lock.json');
+  const lock = JSON.parse(fs.readFileSync(lockFile, 'utf8'));
+  lock.skills['gone-local'] = { ref: './not-here', kind: 'local' };
+  fs.writeFileSync(lockFile, JSON.stringify(lock));
+  fs.rmSync(join(cwd, '.claude/skills/hello-world'), { recursive: true, force: true });
+
+  const { installed, failed } = await installFromLock(cwd, cfg, { force: true });
+  assert.deepEqual(installed, ['hello-world']); // the good entry still installs
+  assert.equal(failed.length, 1);
+  assert.equal(failed[0].name, 'gone-local');
   fs.rmSync(cwd, { recursive: true, force: true });
 });
 

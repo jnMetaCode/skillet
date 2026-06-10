@@ -130,14 +130,22 @@ function pinnedRef(entry) {
 
 // `skillet install` (no args) — reinstall every skill from skillet.lock.json at
 // its pinned version. The reproducible, `npm ci`-style path.
-export async function installFromLock(cwd, cfg, { force = true } = {}) {
+export async function installFromLock(cwd, cfg, { force = true, onError } = {}) {
   const lock = loadLock(cwd);
   const names = Object.keys(lock.skills || {});
   if (!names.length) die('no skillet.lock.json entries to install — add skills first with: skillet add <ref>');
   const installed = [];
+  const failed = [];
   for (const name of names) {
-    const r = await addSkill(cwd, cfg, pinnedRef(lock.skills[name]), { force });
-    installed.push(r.name);
+    // One broken entry (say, a local path that doesn't exist on this machine)
+    // must not abort the rest — install what we can, then report.
+    try {
+      const r = await addSkill(cwd, cfg, pinnedRef(lock.skills[name]), { force });
+      installed.push(r.name);
+    } catch (e) {
+      failed.push({ name, reason: e.message });
+      if (onError) onError(name, e);
+    }
   }
-  return installed;
+  return { installed, failed };
 }
