@@ -11,8 +11,10 @@ if you prefer to keep it private.
       scoped keeps the brand, bin stays `skillet`). Claim the `jnmetacode` npm
       username/org before publishing — see engram's `docs/LAUNCH.md` for the
       scope-claim steps. *(name set in package.json + docs)*
-- [ ] Seed `registry/index.json` with 8–15 genuinely useful skills (more than the
-      5 Anthropic ones) — registries live or die on day-one content.
+- [x] Seed `registry/index.json` — **22 skills**: all 17 from anthropics/skills
+      plus 5 first-party skills hosted in this repo (`skills/`): engram-memory,
+      tracelet-instrument, conventional-commits, changelog, repo-onboarding.
+      Every entry verified to resolve; live `search`+`add` tested. *(done)*
 - [ ] Record the hero GIF (script below) → `docs/demo.gif`, uncomment in README.
 - [ ] Add `NPM_TOKEN` secret; `git tag v0.1.0 && git push --tags` to publish.
 - [ ] Verify `npx @jnmetacode/skillet add pdf` works from a clean machine.
@@ -46,9 +48,12 @@ No narration, loop-friendly. Tools: Kap / QuickTime + Gifski.
 > Git repo served over raw GitHub — like a Homebrew tap, or shadcn/ui's registry,
 > applied to skills. Zero runtime deps (Node built-ins + your git), MIT.
 >
-> It installs real skills today (Anthropic's pdf/pptx/docx/xlsx are seeded). I'd
-> love feedback on the registry format and what skills you'd want listed.
-> Repo: <link>
+> It installs real skills today — 22 in the seed registry: all of Anthropic's
+> (pdf/pptx/docx/xlsx, mcp-builder, …) plus first-party ones like
+> conventional-commits and repo-onboarding. I'd love feedback on the registry
+> format and what skills you'd want listed.
+> Repo: https://github.com/jnMetaCode/skillet · browse the registry:
+> https://jnmetacode.github.io/skillet/
 
 Post Tue/Wed ~8am PT. Reply to every comment for 3 hours.
 
