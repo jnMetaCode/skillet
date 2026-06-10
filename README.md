@@ -11,9 +11,9 @@ No server, no account, no lock-in. Just `npx @jnmetacode/skillet add <skill>`.
 npx @jnmetacode/skillet add pdf
 ```
 
-English | [简体中文](./README.zh-CN.md)
+English | [简体中文](https://github.com/jnMetaCode/skillet/blob/main/README.zh-CN.md)
 
-![skillet demo — search, install (SHA-pinned), scaffold and validate](docs/demo.gif)
+![skillet demo — search, install (SHA-pinned), scaffold and validate](https://raw.githubusercontent.com/jnMetaCode/skillet/main/docs/demo.gif)
 
 </div>
 

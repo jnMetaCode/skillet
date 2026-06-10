@@ -1,6 +1,6 @@
 {
   "name": "@jnmetacode/skillet",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A package manager for AI agent skills. Find, install, version and share SKILL.md skills from a Git-backed registry — zero infra, one command.",
   "type": "module",
   "bin": {
