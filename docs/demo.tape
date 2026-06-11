@@ -36,4 +36,4 @@ Enter
 Type "skillet new my-skill && skillet validate ./my-skill"
 Sleep 300ms
 Enter
-Sleep 4s
+Sleep 6s
