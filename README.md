@@ -82,6 +82,20 @@ project `.mcp.json`):
 }
 ```
 
+
+Works in **any MCP client** — same JSON, different config file:
+
+| Client | Where the config lives |
+| --- | --- |
+| Claude Desktop | `claude_desktop_config.json` |
+| Claude Code | project `.mcp.json` (or the plugin: `/plugin marketplace add jnMetaCode/local-agent-toolkit`) |
+| Cursor | `.cursor/mcp.json` (project) or `~/.cursor/mcp.json` |
+| Windsurf | `~/.codeium/windsurf/mcp_config.json` |
+| Cline | `cline_mcp_settings.json` |
+| Zed | `settings.json` → `context_servers` |
+
+(Check your client's MCP docs for the exact key names — the `command`/`args` pair above is the same everywhere.)
+
 Tools exposed: `skillet_search`, `skillet_install` (registry-only, name-validated),
 `skillet_list`. Zero dependencies — a few hundred lines of JSON-RPC over stdio.
 

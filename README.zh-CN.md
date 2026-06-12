@@ -79,6 +79,20 @@ Claude Desktop / Claude Code 可以替你搜索和安装技能——"找个 PDF 
 }
 ```
 
+
+**任何 MCP 客户端**都能用——同一段 JSON，只是配置文件位置不同：
+
+| 客户端 | 配置文件位置 |
+| --- | --- |
+| Claude Desktop | `claude_desktop_config.json` |
+| Claude Code | 项目 `.mcp.json`（或直接装插件：`/plugin marketplace add jnMetaCode/local-agent-toolkit`） |
+| Cursor | 项目 `.cursor/mcp.json` 或 `~/.cursor/mcp.json` |
+| Windsurf | `~/.codeium/windsurf/mcp_config.json` |
+| Cline | `cline_mcp_settings.json` |
+| Zed | `settings.json` → `context_servers` |
+
+（具体键名以你客户端的 MCP 文档为准——上面那段 `command`/`args` 在哪儿都一样。）
+
 暴露的工具：`skillet_search`、`skillet_install`（仅限注册表来源、名称经过
 校验）、`skillet_list`。零依赖——几百行 stdio JSON-RPC。
 

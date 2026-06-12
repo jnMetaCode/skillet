@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-06-11",
+  "updated": "2026-06-13",
   "note": "Community registry for AI agent skills. Add yours via PR — see docs/SPEC.md. Entries point at a SKILL.md folder in a public Git repo.",
   "skills": [
     {
@@ -16,6 +16,21 @@
         "visual"
       ],
       "license": "source-available"
+    },
+    {
+      "name": "brainstorming-zh",
+      "description": "（中文）任何创造性工作前先用：通过协作式提问把想法打磨成完整设计与规格，再动手实现。来自 superpowers-zh（5.2k★）。",
+      "repo": "jnMetaCode/superpowers-zh",
+      "path": "skills/brainstorming",
+      "ref": "main",
+      "keywords": [
+        "chinese",
+        "zh",
+        "design",
+        "brainstorming",
+        "planning"
+      ],
+      "license": "MIT"
     },
     {
       "name": "brand-guidelines",
@@ -85,6 +100,21 @@
         "commits",
         "conventional-commits",
         "workflow"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "dispatching-parallel-agents-zh",
+      "description": "（中文）把可并行的独立工作拆给多个子 agent 同时执行的调度方法。来自 superpowers-zh（5.2k★）。",
+      "repo": "jnMetaCode/superpowers-zh",
+      "path": "skills/dispatching-parallel-agents",
+      "ref": "main",
+      "keywords": [
+        "chinese",
+        "zh",
+        "subagents",
+        "parallel",
+        "orchestration"
       ],
       "license": "MIT"
     },
@@ -289,6 +319,21 @@
         "fun"
       ],
       "license": "source-available"
+    },
+    {
+      "name": "subagent-driven-development-zh",
+      "description": "（中文）用子 agent 驱动开发的完整工作流：拆解、委派、验收。来自 superpowers-zh（5.2k★）。",
+      "repo": "jnMetaCode/superpowers-zh",
+      "path": "skills/subagent-driven-development",
+      "ref": "main",
+      "keywords": [
+        "chinese",
+        "zh",
+        "subagents",
+        "workflow",
+        "development"
+      ],
+      "license": "MIT"
     },
     {
       "name": "systematic-debugging",
