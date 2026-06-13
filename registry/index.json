@@ -379,6 +379,27 @@
       "license": "source-available"
     },
     {
+      "name": "tweetclaw",
+      "description": "Guide safe X/Twitter automation with TweetClaw. Use when scraping tweets, searching replies, exporting followers, posting with approval, or managing monitors and webhooks.",
+      "repo": "Xquik-dev/tweetclaw",
+      "path": "skills/tweetclaw",
+      "ref": "master",
+      "keywords": [
+        "twitter",
+        "x",
+        "tweet-scraper",
+        "search-tweets",
+        "search-replies",
+        "post-tweets",
+        "follower-export",
+        "media",
+        "monitors",
+        "webhooks",
+        "openclaw"
+      ],
+      "license": "MIT-0"
+    },
+    {
       "name": "tracelet-instrument",
       "description": "Instrument an AI agent or LLM app with OpenTelemetry and watch its runs live in tracelet. Use when adding tracing/observability to an agent or debugging what an agent actually did.",
       "repo": "jnMetaCode/skillet",
