@@ -188,6 +188,10 @@ Part of a small, local-first, zero-dependency toolkit for building AI agents —
 - 🔭 **[tracelet](https://github.com/jnMetaCode/tracelet)** — local DevTools to debug agent runs
 - 🧠 **[engram](https://github.com/jnMetaCode/engram)** — a local, private memory layer for agents (and you)
 
+
+Beyond the toolkit, the same author maintains the wider「AI不止语」ecosystem:
+[agency-agents-zh](https://github.com/jnMetaCode/agency-agents-zh) (277 AI expert personas) · [superpowers-zh](https://github.com/jnMetaCode/superpowers-zh) (20 skills that teach AI how to work) · [agency-orchestrator](https://github.com/jnMetaCode/agency-orchestrator) (one prompt → 276 specialists collaborate) · [openshorts](https://github.com/jnMetaCode/openshorts) (topic in, finished short video out).
+
 ## License
 
 MIT — see [LICENSE](LICENSE). (Skills installed *through* skillet keep their own
