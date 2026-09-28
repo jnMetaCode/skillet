@@ -178,6 +178,21 @@
       "license": "source-available"
     },
     {
+      "name": "hol-guard",
+      "description": "Protect local AI harnesses, review Guard approvals and receipts, and scan agent plugins, skills, MCP servers, and marketplace packages before trusting or releasing them.",
+      "repo": "hashgraph-online/hol-guard-plugin",
+      "path": "skills/hol-guard",
+      "ref": "main",
+      "keywords": [
+        "security",
+        "agents",
+        "hol-guard",
+        "mcp",
+        "plugins"
+      ],
+      "license": "Apache-2.0"
+    },
+    {
       "name": "incident-postmortem",
       "description": "Write a blameless, actionable incident postmortem from the raw facts. Use after an outage or when writing up \"what happened\".",
       "repo": "jnMetaCode/skillet",
