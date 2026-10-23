@@ -423,6 +423,15 @@
       "license": "source-available"
     },
     {
+      "name": "product-design-harness",
+      "description": "Evaluate product directions, features, workflows, experiments and launch decisions before execution or the next iteration using UX3 decision gates.",
+      "repo": "cis2042/ux3-product-design-harness",
+      "path": "skills/product-design-harness",
+      "ref": "48965c6b501f61ebbb8130c9c2e4f9af08922b9f",
+      "keywords": ["product-design", "decision", "ux3"],
+      "license": "MIT"
+    },
+    {
       "name": "xlsx",
       "description": "Open, read, edit, format, chart and create spreadsheets (.xlsx/.xlsm/.csv/.tsv), including formulas and data cleaning.",
       "repo": "anthropics/skills",
